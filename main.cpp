@@ -3,6 +3,7 @@
 
 void main() {
 	int target;
+	int guess_state;
 	int current = -1;
 	int attempts = 0;
 	int border_lower = 1;
@@ -38,9 +39,24 @@ void main() {
 		}
 	}
 
-
 	if (game == 2) {
-		std :: cout << "Pick a number from 0 to 1000 and "
+		current = 500;
+		std::cout << "Pick a number from 1 to 1000 and the program will try to guess it.\n";
+		while (true)
+		{
+			std::cout << "Is " << current << " the number you've picked?\n";
+			std::cout << "Enter 1 if the picked number is lower, 2 if it's higher, 3 if this is the picked number.\n";
+			std::cin >> guess_state;
+			switch (guess_state)
+			{
+			case 1: {
+				current = current - current / 2; break; }
+			case 2: {
+				current = current + current / 2; break; }
+			case 3: {
+				std::cout << "Great! It took me " << attempts << " attempts to guess the number."; break; }
+			}
+		}
 	}
 
 }
