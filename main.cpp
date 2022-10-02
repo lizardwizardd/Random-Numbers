@@ -10,12 +10,12 @@ void main() {
 	int border_upper = 1000;
 	int game;
 
-	std::cout << "Enter 1 if you want to guess a number or 2 if you want to pick.\n";
+	std::cout << "Enter [1] if you want to guess a number or [2] if you want to pick.\n";
 	std::cin >> game;
 	std::cout << "\n";
 
 	if (game == 1) {
-		std::cout << "Guess a number in range from 1 to 1000.\n";
+		std::cout << "Try to guess a number in range from 1 to 1000.\n";
 		srand( time(0) );
 		target = ( 1 +  rand() ) % 1001;
 
@@ -40,21 +40,32 @@ void main() {
 	}
 
 	if (game == 2) {
+		int last_highest = 1000;
+		int last_lowest = 0;
 		current = 500;
+		attempts = 1;
 		std::cout << "Pick a number from 1 to 1000 and the program will try to guess it.\n";
-		while (true)
+		std::cout << "After program's each attempt, enter [1] if the number you've picked is lower, [2] if it's higher, [3] if this is the picked number.\n";
+		while (game == 2)
 		{
 			std::cout << "Is " << current << " the number you've picked?\n";
-			std::cout << "Enter 1 if the picked number is lower, 2 if it's higher, 3 if this is the picked number.\n";
+			std::cout << "Enter: ";
 			std::cin >> guess_state;
+			std::cout << "\n";
 			switch (guess_state)
 			{
 			case 1: {
-				current = current - current / 2; break; }
+				last_highest = current;
+				current = (int)((current + last_lowest) / 2);
+				attempts++;
+				break; }
 			case 2: {
-				current = current + current / 2; break; }
+				last_lowest = current;
+				current = (int)((current + last_highest) / 2);
+				attempts++;
+				break; }
 			case 3: {
-				std::cout << "Great! It took me " << attempts << " attempts to guess the number."; break; }
+				std::cout << "Great! It took me " << attempts << " attempts to guess the number.\n"; game = 0;  break; }
 			}
 		}
 	}
